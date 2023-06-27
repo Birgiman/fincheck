@@ -27,6 +27,7 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 .editorconfig
+.jwt-flow.excalidraw
 
 # IDE - VSCode
 .vscode/*
