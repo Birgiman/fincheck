@@ -33,14 +33,14 @@ Você precisa ter instalado:
 
 - Node.js v18
 - Docker v4.17.1 e utilizar a imagem Postgres (https://hub.docker.com/_/postgres)
-- Yarn ou NPM para a instalação dos pacotes (projeto desenvolvido com Yarn)
+- NPM, Yarn ou PNPM para a instalação dos pacotes (projeto desenvolvido com PNPM)
 
 Para a instalação dos pacotes você deve entrar em cada pasta individualmente
-e rodar o comando `yarn install`, pois neste projeto temos o _backend_ e o _frontend_.
+e rodar o comando `pnpm install`, pois neste projeto temos o _backend_ e o _frontend_.
 
 Navegue para `../api` e rode no terminal o comando:
 ```bash
-yarn install
+pnpm install
 ```
 Repita esse passo para `../frontend`.
 
@@ -68,8 +68,8 @@ Lembre-se de alterar as rotas da aplicação nos arquivos:
 E mais um detalhe, a porta padrão do _frontend_ foi definida para `:3000`, e da _api_ para `:4000`.
 
 Pronto, agora você está preparado para utilizar esta aplicação.
-Para iniciar a _api_ basta rodar `yarn start:dev` ou `yarn start:docker` caso o processo do Docker esteja parado no Windows, em sua respectiva pasta.
-E para iniciar o _frontend_ basta rodar `yarn start` em sua respectiva pasta.  
+Para iniciar a _api_ basta rodar `pnpm start:dev` ou `pnpm start:docker` caso o processo do Docker esteja parado no Windows, em sua respectiva pasta.
+E para iniciar o _frontend_ basta rodar `pnpm dev` em sua respectiva pasta.  
 
 </div>
 <div id='stack_utilizada'>
