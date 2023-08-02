@@ -15,7 +15,7 @@ export function SliderOptions({ isActive, month, index }: SliderOptionsProps) {
     <button
     onClick={() => swiper.slideTo(index)}
       className={cn(
-        'w-full rounded-full h-12 text-sm font-medium text-gray-800 tracking-[-0.5px]',
+        'w-full rounded-full h-12 text-sm font-medium text-gray-800 tracking-tighter',
         isActive && 'bg-white'
       )}
     >
