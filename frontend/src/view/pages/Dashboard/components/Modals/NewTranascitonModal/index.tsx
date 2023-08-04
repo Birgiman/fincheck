@@ -1,34 +1,34 @@
 import { Button } from '../../../../../components/Button';
-import { ColorsDropDownInput } from '../../../../../components/ColorsDropDownInput';
 import { Input } from '../../../../../components/Input';
 import { InputCurrency } from '../../../../../components/InputCurrency';
 import { Modal } from '../../../../../components/Modal';
 import { Select } from '../../../../../components/Select';
-import { useNewAccountModalController } from './useNewAccountModalController';
+import { useNewTransactionModalController } from './useNewTransactionModalController';
 
-export function NewAccountModal() {
+export function NewTranasctionModal() {
 
   const {
-    isNewAccountModalOpen,
-    closeNewAccountModal,
-  } = useNewAccountModalController();
+    isNewTransactionModalOpen,
+    closeNewTransactionModal,
+    newTransactionType,
+  } = useNewTransactionModalController();
+
+  const isExpense = newTransactionType === 'EXPENSE';
 
   return (
     <Modal
-      title='Nova Conta'
-      open={isNewAccountModalOpen}
-      onClose={closeNewAccountModal}
+      title={isExpense ? 'Nova Despesa' : 'Nova Receita'}
+      open={isNewTransactionModalOpen}
+      onClose={closeNewTransactionModal}
     >
       <form>
 
-        <div
-
-        >
+        <div>
           <span
-              className='text-gray-600 tracking-tighter text-xs'
-            >
-              Saldo
-            </span>
+            className='text-gray-600 tracking-tighter text-xs'
+          >
+            Valor {isExpense ? 'da despesa' : 'da receita'}
+          </span>
           <div
             className='flex items-center gap-2'
           >
@@ -47,11 +47,11 @@ export function NewAccountModal() {
           <Input
             type='text'
             name='name'
-            placeholder='Nome da Conta'
+            placeholder={isExpense ? 'Nome da Despesa' : 'Nome da Receita'}
           />
 
           <Select
-            placeholder='Tipo'
+            placeholder='Categoria'
             options={[
               {
                 value: 'CHECKING',
@@ -68,7 +68,23 @@ export function NewAccountModal() {
             ]}
           />
 
-          <ColorsDropDownInput />
+          <Select
+            placeholder={isExpense ? 'Pagar com' : 'Receber com'}
+            options={[
+              {
+                value: 'CHECKING',
+                label: 'Conta Corrente'
+              },
+              {
+                value: 'INVESTMENT',
+                label: 'Investimentos'
+              },
+              {
+                value: 'CASH',
+                label: 'Dinheiro Físico'
+              },
+            ]}
+          />
         </div>
 
         <Button

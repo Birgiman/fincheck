@@ -6,7 +6,10 @@ import { useDashboard } from '../DashboardContext/useDashboard';
 
 export function Fab() {
 
-  const { openNewAccountModal } = useDashboard();
+  const {
+    openNewAccountModal,
+    openNewTransactionModal,
+  } = useDashboard();
 
   return (
    <div
@@ -25,12 +28,14 @@ export function Fab() {
 
       <DropdownMenu.Content>
         <DropdownMenu.Item
+          onSelect={() => openNewTransactionModal('EXPENSE')}
           className='gap-2'
         >
           <CategoryIcon type='expense' />
           Nova Despesa
         </DropdownMenu.Item>
         <DropdownMenu.Item
+          onSelect={() => openNewTransactionModal('INCOME')}
           className='gap-2'
         >
           <CategoryIcon type='income' />
