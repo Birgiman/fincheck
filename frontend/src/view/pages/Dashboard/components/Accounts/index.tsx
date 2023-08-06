@@ -20,7 +20,8 @@ export function Accounts() {
     toggleValueVisibility,
     isLoading,
     accounts,
-    openNewAccountModal
+    openNewAccountModal,
+    currentBalance,
   } = useAccountsController();
 
   return (
@@ -44,7 +45,7 @@ export function Accounts() {
                 'text-2xl tracking-tightest text-white',
                 !areValuesVisible && 'blur-[10px]'
               )}>
-                {formatCurrency(1000000)}
+                {formatCurrency(currentBalance)}
               </strong>
               <button
                 className='flex items-center justify-center w-8 h-8'
@@ -66,7 +67,7 @@ export function Accounts() {
                 <button
                   onClick={openNewAccountModal}
                   className='mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col items-center justify-center gap-4 text-white hover:bg-teal-950/40 transition-colors'
-                  >
+                >
                   <div className='w-11 h-11 rounded-full border-2 border-dashed border-white flex items-center justify-center'>
                     <PlusIcon className='w-6 h-6' />
                   </div>
@@ -79,53 +80,34 @@ export function Accounts() {
 
             {accounts.length > 0 && (
               <div>
-              <Swiper
-                spaceBetween={16}
-                slidesPerView={windowsWidth >= 500 ? 2.1 : 1.1}
-                onSlideChange={swiper => {
-                  setSliderState({
-                    isBeginning: swiper.isBeginning,
-                    isEnd: swiper.isEnd
-                  })
-                }}
-              >
-                <div className='flex items-center justify-between mb-4' slot='container-start' >
-                  <strong className='tracking-tightest text-white text-lg' >
-                    Minhas contas
-                  </strong>
+                <Swiper
+                  spaceBetween={16}
+                  slidesPerView={windowsWidth >= 500 ? 2.1 : 1.1}
+                  onSlideChange={swiper => {
+                    setSliderState({
+                      isBeginning: swiper.isBeginning,
+                      isEnd: swiper.isEnd
+                    })
+                  }}
+                >
+                  <div className='flex items-center justify-between mb-4' slot='container-start' >
+                    <strong className='tracking-tightest text-white text-lg' >
+                      Minhas contas
+                    </strong>
 
-                  <SliderNavigation
-                    isBeginning={sliderState.isBeginning}
-                    isEnd={sliderState.isEnd}
-                  />
-                </div>
+                    <SliderNavigation
+                      isBeginning={sliderState.isBeginning}
+                      isEnd={sliderState.isEnd}
+                    />
+                  </div>
 
-                <SwiperSlide>
-                  <AccountCard
-                    color='#7950F2'
-                    name="Nubank"
-                    balance={1000.23}
-                    type='CHECKING'
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <AccountCard
-                    color='#333'
-                    name="XP"
-                    balance={1000.23}
-                    type='INVESTMENT'
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <AccountCard
-                    color='#0f0'
-                    name="Carteira"
-                    balance={1000.23}
-                    type='CASH'
-                  />
-                </SwiperSlide>
-              </Swiper>
-            </div>
+                  {accounts.map(account => (
+                    <SwiperSlide key={account.id}>
+                      <AccountCard data={account}/>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
             )}
           </div>
         </>
