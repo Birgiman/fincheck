@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { z } from 'zod';
@@ -41,13 +42,15 @@ export function useEditAccountModalController() {
     },
   })
 
+  const [isDeleteModalOpen, setIsDeleteModaOpen] = useState(false);
+
   const queryClient = useQueryClient();
 
-  const { isLoading, mutateAsync } = useMutation(bankAccountsService.update);
+  const { isLoading, mutateAsync: updateAccount } = useMutation(bankAccountsService.update);
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      await mutateAsync({
+      await updateAccount({
         ...data,
         initialBalance: currencyStringToNumber(data.initialBalance),
         id: accountBeingEdit!.id,
@@ -61,6 +64,28 @@ export function useEditAccountModalController() {
     }
   });
 
+  const { isLoading: isLoadingDelete, mutateAsync: removeAccount } = useMutation(bankAccountsService.remove);
+
+  function handleOpenDeleteModal() {
+    setIsDeleteModaOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModaOpen(false);
+  }
+
+  async function handleDeleteAccount() {
+    try {
+      await removeAccount(accountBeingEdit!.id);
+
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] })
+      closeEditAccountModal();
+      toast.success('Conta foi excluída com sucesso!')
+    } catch {
+      toast.error('Erro ao excluir a conta!')
+    }
+  }
+
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
@@ -69,5 +94,10 @@ export function useEditAccountModalController() {
     handleSubmit,
     control,
     isLoading,
+    isDeleteModalOpen,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteAccount,
+    isLoadingDelete,
   };
 }
