@@ -4,14 +4,15 @@ import { DropdownMenu } from './DropDownMenu';
 
 export function UserMenu() {
 
-  const { signout } = useAuth();
+  const { signout, user } = useAuth();
+  console.log(user?.name)
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <div className='bg-teal-100 rounded-full w-12 h-12 flex items-center justify-center border border-teal-100' >
           <span className='text-sm tracking-tighter text-teal-900 font-medium' >
-            EB
+            {user ? user?.name.slice(0, 2).toUpperCase() : 'AVATAR'}
           </span>
         </div>
       </DropdownMenu.Trigger>

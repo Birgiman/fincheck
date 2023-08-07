@@ -57,6 +57,7 @@ export function useNewTransactionModalController() {
       });
 
       queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] })
       closeNewTransactionModal();
       reset();
       toast.success(

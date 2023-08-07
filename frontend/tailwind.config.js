@@ -214,6 +214,9 @@ export default {
         tighter: '-0.5px',
         tightest: '-1px',
       },
+      fontFamily: {
+        sans: ['DM Sans', 'sans-serif']
+      }
     },
   },
   plugins: [],
